@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<!-- พัฒนาโดย ผศ.ดร.วิเชียร ปลื้มกมล คณะวิศวกรรมศาสตร์ มหาวิทยาลัยขอนแก่น มกราคม 2564 -->
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="https://map.longdo.com/favicon.ico" type="image/x-icon" />
+    <title>Longdo Map | Extra Layers</title>
+    <link rel="stylesheet" href="../css/map.css">
+    <link rel="stylesheet" href="../css/legend.css">
+    <script type="text/javascript" src="https://api.longdo.com/map/?key=xxxxxxxxxxxxxx"></script>
+    <script type="text/javascript" src="../js/legend.js"></script>
+
+    <script>
+        var map;
+
+        function loadGeoJson(geoJsonFile) {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    let geoJson = JSON.parse(xhr.responseText);
+                    showLayer(geoJson);
+                }
+            };
+            xhr.open('GET', geoJsonFile);
+            xhr.send();
+        }
+        
+        function init() {
+            map = new longdo.Map({
+                placeholder: document.getElementById('map'),
+				lastView: false,
+				location: {lat:13.3, lon:103},
+				zoom: 6
+            });
+
+            loadGeoJson('./geojson/rain.geojson');
+            showMapLegend();
+        }
+
+        function showMapLegend() {
+            var legend = new LongdomapLegend({map: map});
+            legend.showMapLegend('<img src="./images/legend-rainfall-accumulation-icon.png">ปริมาณฝนสะสม (มม.) ของประเทศไทยปี 2563', '<img src="./images/legend-rainfall-accumulation.png" height=44><div class="longdomap-legend-description">แหล่งข้อมูล: <a href="https://giovanni.gsfc.nasa.gov/giovanni/" target="_blank" class="longdomap-legend-source-link">NASA Giovanni</a></div>');
+        }
+
+        function showLayer(geoJson) {
+            geoJson.features.forEach(function(element) {
+                var overlay;
+                if (element.geometry.type === "Point") {
+                    overlay = new longdo.Marker({ lon: element.geometry.coordinates[0], lat: element.geometry.coordinates[1]});
+                } else if (element.geometry.type === "MultiPolygon") {
+                    let tempPolygon = []
+                    element.geometry.coordinates[0].forEach(function(x) {
+                        x.forEach(function(loc) {
+                            tempPolygon.push({ lon: loc[0], lat: loc[1] })
+                        })
+                    })
+
+                    let dn = element.properties.DN.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")+' มม.';
+                    overlay = new longdo.Polygon(tempPolygon, {
+                        title: dn,
+                        lineColor: 'rgba(0, 0, 0, 0)',
+                        popup: {
+                            html: '<div class="longdo-legend-popup-html">ปริมาณน้ำฝนสะสม '+dn+'</div>'
+                        },
+                        fillColor: getRainAccumulationColor(element.properties.DN),		
+                    });
+                }
+                overlay.longdomap = {'overlaytype' : 'rainfall_accumulation'};
+                map.Overlays.add(overlay);
+            });
+        }
+        
+		function getRainAccumulationColor(val){
+			return  val > 3600 ? 'rgba(0, 0, 255, 0.8)' :
+                    val > 3200 ? 'rgba(28, 28, 255, 0.8)' :
+                    val > 2800 ? 'rgba(57, 57, 255, 0.8)' :
+                    val > 2400 ? 'rgba(85, 85, 255, 0.8)' :
+                    val > 2000 ? 'rgba(113, 113, 255, 0.8)' :
+                    val > 1600 ? 'rgba(142, 142, 255, 0.8)' :
+                    val > 1200 ? 'rgba(170, 170, 255, 0.8)' :
+                    val > 800 ? 'rgba(198, 198, 255, 0.8)' :
+                    val > 400 ? 'rgba(227, 227, 255, 0.8)' : '#ffffff';
+	    }
+    </script>
+</head>
+
+<body onload="init();">
+    <div id="map"></div>
+</body>
+
+</html>

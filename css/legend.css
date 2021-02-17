@@ -1,0 +1,149 @@
+#longdomap-legend-div {
+    position: absolute;
+    bottom: 28px;
+    right: 6px;
+    background: rgba(255, 255, 255, 0.80);
+    /* background-color: rgb(255, 255, 255); */
+    padding: 0;
+    border: 2px solid #A5D8FF;
+    -khtml-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 10px;
+    box-shadow: 0px 1px 6px rgba(0,0,0,0.3);
+    z-index: 6;
+}
+#longdomap-legend-content-div {
+    overflow-y: auto;
+    text-align: center;
+    border-radius: 0 0 10px 10px;
+}
+#longdomap-legend-collapse-title {
+    margin: 5px 20px 5px 2px;
+    font-size: 13px;
+    color: #fff;
+    float: left;
+}
+#longdomap-legend-collapse-text {
+    margin-right: 5px;
+    font-size: 12px;
+    line-height: 16px;
+    height: 16px;
+}
+#longdomap-legend-div.longdomap-legend-hidden {
+    background-color: #2085f3;
+    padding: 2px 10px;
+    border: none;
+    border-radius: 4px;
+}
+.longdomap-legend-description {
+    font-size: 12px;
+    margin-top: 10px;
+}
+.longdomap-legend-warning {
+    font-size: 11px;
+    color: #CC2725;
+    margin-top: 10px;
+}
+#longdomap-legend-div.longdomap-legend-hidden #longdomap-legend-content-div {
+    display: none;
+}
+#longdomap-legend-div.longdomap-legend-hidden #longdomap-legend-collapse-text {
+    color: #FFF;
+    font-size: 14px;
+}
+#longdomap-legend-collapse-div .collapse-arrow, #longdomap-legend-collapse-text {
+    float: right;
+    cursor: pointer;
+}
+#longdomap-legend-collapse-div .collapse-arrow {
+    background: url(https://map.longdo.com/mmmap/images/collapse-arrow.png) no-repeat;
+    background-position: bottom left;
+    width: 12px;
+    height: 12px;
+    margin-top: 2px;
+}
+#longdomap-legend-collapse-div {
+    cursor: pointer;
+    color: #FFF;
+    text-align: right;
+    background: #2988F0;
+    border-radius: 10px 10px 0 0;
+    border: 2px solid #fff;
+    font-family: Prompt-Regular;
+}
+#longdomap-legend-collapse-div {
+    padding: 3px 10px;
+}
+#longdomap-legend-content-div {
+    padding: 5px 10px 10px;
+}
+.longdomap-legend-hidden #longdomap-legend-collapse-div {
+    border-radius: 0;
+    border: none;
+    padding: 0;
+}
+#longdomap-legend-div.longdomap-legend-hidden #longdomap-legend-collapse-div {
+    margin-bottom: 0px;
+}
+#longdomap-legend-div.longdomap-legend-hidden #longdomap-legend-collapse-div .collapse-arrow {
+    background-position: top left;
+}
+#longdomap-layer-filter-div {
+    position: absolute;
+    top: 74px;
+    right: 8px;
+}
+form[name="longdomap-layer-filter-button"]{
+    display: flex;
+    flex-direction: row;
+    margin: 0px;
+}
+#longdomap-layer-filter-div label.first-child {
+    border-radius: 4px 0 0 4px;
+}
+#longdomap-layer-filter-div label:last-child {
+    border-radius: 0 4px 4px 0;
+}
+#longdomap-layer-filter-div input[type="radio"] {
+    display: none;
+}
+#longdomap-layer-filter-div label {
+    color: rgba(164,164,164,1);
+    cursor: pointer;
+    font-size: 11px;
+    font-family: Tahoma,sans-serif;
+    background: #FFFFFF;
+    padding: 6px 8px;
+    outline: none;
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.30);
+    /* margin-right: -1px; */
+    /* border: 1px solid #ffffff; */
+    border: none;
+    min-width: 40px;
+    text-align: center;
+}
+#longdomap-layer-filter-div input[type="radio"]:checked + label {
+    color: #FFFFFF;
+    background-color: #2085F3;
+}
+.longdomap-legend-source-link {
+    color: #333!important;
+    font-weight: bold;
+}
+.longdomap-legend-collapse-button {
+    float: right;
+    margin: 5px 0;
+}
+.longdo-legend-popup-html {
+    background: #fffbdb;
+    border-radius: 4px;
+    white-space: nowrap;
+    padding: 5px;
+    box-shadow: 2px 3px 4px rgb(0 0 0 / 20%);
+}
+#longdomap-legend-collapse-title img {
+    height: 14px;
+    vertical-align: bottom;
+    margin-right: 6px;
+}
